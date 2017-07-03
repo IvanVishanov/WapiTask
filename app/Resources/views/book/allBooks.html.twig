@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block title %}Books{% endblock %}
+{% block buttons %}
+    <div class="col-xs-6 col-sm-3">
+        <a class="btn btn-wapi w-12 m-b-1 m-t-2" id="new-book" href="{{ path('homepage') }}">
+            <span class="pull-left">New Book</span>
+            <img class="pull-right img-menu" src="{{ asset('new.png') }}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <a class=" btn btn-wapi w-12 m-b-1 m-t-2" id="logout"
+           href="{{ path('security_logout') }}"><span
+                    class="pull-left">Logout</span></a>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="center-block">
+        <div class="row">
+            {% for book in pagination %}
+                <div class="col-xs-6 col-sm-3 m-b-1 text-center">
+                    <img class="w-12 h-200" src="{{ asset('media/covers/' ~ book.cover) }}"
+                         alt="Image">
+                    <div>
+                        {{ book.title }}<br>
+                        {{ book.author }}<br>
+                        {{ book.pageCount }}<br>
+                        {{ book.format }}<br>
+                        {{ book.iSBN }}<br>
+                        {{ book.datePublished|date("m-d-Y") }}
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+        <div class="row">
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Register{% endblock %}
+
+{% block buttons %}
+    <div class="col-xs-6 col-sm-3">
+        <a class="btn btn-wapi w-12 m-b-1 m-t-2" id="new-book" href="{{ path('homepage') }}">
+            <span class="pull-left">New Book</span>
+            <img class="pull-right img-menu" src="{{ asset('new.png') }}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <a class="btn btn-wapi w-12 m-b-1 m-t-2 pull-right" id="login"
+           href="{{ path('security_login') }}">
+            <span class="pull-left">Login</span>
+            <img class="pull-right img-menu" src="{{ asset('key.png') }}"></a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="center-block">
+        <div class="row">
+            <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 text-center">
+                <form name="user" method="post" novalidate>
+                    <div id="user">
+                        <div class="form-group">
+                            <input type="text" placeholder="Username" id="user_username" name="user[username]"
+                                   required="required" class="form-control">{{ form_errors(form['username']) }}
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Password" id="user_password_first"
+                                   name="user[password][first]" required="required" class="password-field form-control">
+                            {{ form_errors(form['password']['first']) }}
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" placeholder="Repeat Password" id="user_password_second"
+                                   name="user[password][second]" required="required"
+                                   class="password-field form-control">
+                        </div>
+                    </div>
+                    {{ form_row(form._token) }}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-wapi col-xs-offset-3 col-xs-6" value="Register"><span
+                                    class="pull-left">Register</span></button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

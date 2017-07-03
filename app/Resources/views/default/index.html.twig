@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <form name="book" method="post" action="{{ path('upload_book') }}" enctype="multipart/form-data" novalidate>
+            <div id="book">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <input type="text" id="book_title" name="book[title]" required="required"
+                               placeholder="Book Title" value="{{ form.vars.value.title }}" class="form-control">
+                        {{ form_errors(form['title']) }}
+                    </div>
+                    <div class="form-group m-b-3">
+                        <input type="text" id="book_author" name="book[author]"
+                               required="required" placeholder="Author" value="{{ form.vars.value.author }}"
+                               class="form-control">
+                        {{ form_errors(form['author']) }}
+                    </div>
+                    <div class="form-group">
+                        <input type="number" min="1" id="book_pageCount" name="book[pageCount]" placeholder="Page Count"
+                               required="required" value="{{ form.vars.value.pageCount }}" class="form-control">
+                        {{ form_errors(form['pageCount']) }}
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="book_iSBN" name="book[iSBN]" placeholder="ISBN" required="required"
+                               value="{{ form.vars.value.iSBN }}" class="form-control">
+                        {{ form_errors(form['iSBN']) }}
+                    </div>
+                    {{ form_row(form._token) }}
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <input type="text"
+                               value="{{ form.vars.value.datePublished is not empty ? form.vars.value.datePublished|date("Y-m-d") : '' }}"
+                               id="book_datePublished" name="book[datePublished]" placeholder="Publish Date"
+                               required="required" class="form-control">
+                        {{ form_errors(form['datePublished']) }}
+                    </div>
+                    <div class="form-group m-b-3">
+                        <select class="form-control" name="book[format]">
+                            <option selected disabled>Select format</option>
+                            {% for format in formats %}
+                                <option value="{{ format.id }}" {{form.vars.value.format is not empty ? form.vars.value.format.id == format.id ? "selected" : "" : ""}}>{{ format.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {{ form_errors(form['format']) }}
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="book_resume" name="book[resume]" placeholder="Resume"
+                                  required="required" class="form-control">{{ form.vars.value.resume }}</textarea>
+                        {{ form_errors(form['resume']) }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-9">
+                    <img class="hide-xxs" src="{{ asset('image_outline.png') }}">
+                    <input class="input-file" type="file" id="book_cover" name="book[cover]"
+                           required="required">
+                    {{ form_errors(form['cover']) }}
+                </div>
+
+                <div class="col-xs-offset-4 col-xs-4 col-sm-offset-0 col-sm-3">
+                    <button class="btn btn-wapi btn-submit" type="submit"><span class="pull-left">Submit</span> <span
+                                class="pull-right glyphicon glyphicon-arrow-right"></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

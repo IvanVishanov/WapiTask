@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('Logo_wapi_favicon.png') }}">
+    {% endblock %}
+</head>
+<body background="{{ asset('background.png') }}">
+<div class="well col-xs-offset-1 col-xs-10 col-sm-offset-1  col-sm-10  col-lg-offset-3 col-lg-6 panel-size">
+        <div class="row">
+
+            <div class="col-offset-1 col-xs-10 col-sm-offset-0 col-sm-6">
+                <a href="{{ path('homepage') }}"><img class="m-b-1 w-12" src="{{ asset('logo.png') }}">
+                </a>
+            </div>
+            {% block buttons %}
+                {% if (app.getUser()) %}
+                    <div class="col-xs-6 col-sm-3">
+                        <a class="btn btn-wapi w-12 m-b-1 m-t-2" id="new-book" href="{{ path('books') }}">
+                            <span class="pull-left">All Books</span>
+                            <img class="pull-right img-menu" src="{{ asset('black_book.png') }}">
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <a class=" btn btn-wapi w-12 m-b-1 m-t-2" id="logout"
+                           href="{{ path('security_logout') }}"><span
+                                    class="pull-left">Logout</span></a>
+                    </div>
+                {% else %}
+                    <div class="col-xs-6 col-sm-3">
+                        <a class=" btn btn-wapi w-12 m-b-1 m-t-2" id="register" href="{{ path('register') }}"><span
+                                    class="pull-left">Register</span></a>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <a class="btn btn-wapi w-12 m-b-1 m-t-2 pull-right" id="login"
+                           href="{{ path('security_login') }}">
+                            <span class="pull-left">Login</span>
+                            <img class="pull-right img-menu" src="{{ asset('key.png') }}"></a>
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+        {% block body %}{% endblock %}
+</div>
+<script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+</body>
+</html>
